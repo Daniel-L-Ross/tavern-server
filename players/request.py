@@ -27,3 +27,31 @@ def get_all_players():
             players.append(player.__dict__)
 
         return json.dumps(players)
+
+def get_players_by_team(team_id):
+    with sqlite3.connect("tavern.db") as conn:
+
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            p.id, 
+            p.first_name, 
+            p.last_name, 
+            p.team_id
+        FROM player p
+        WHERE p.team_id = ?
+        """, (team_id,))
+
+        players = []
+
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            player = Player(row['id'], row['first_name'],
+                            row['last_name'], row['team_id'])
+            players.append(player.__dict__)
+
+        return players
+
