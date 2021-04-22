@@ -8,13 +8,12 @@ class HandleRequests(BaseHTTPRequestHandler):
         resource = path_params[1]
 
         if "?" in resource:
-            # GIVEN: /customers?email=jenna@solis.com
 
-            param = resource.split("?")[1] # email=jenna@solis.com
-            resource = resource.split("?")[0] # 'customers
-            pair = param.split("=") # [ 'email', 'jenna@solis.com' ]
-            key = pair[0] # 'email'
-            value = pair[1] # 'jenna@solis.com'
+            param = resource.split("?")[1] 
+            resource = resource.split("?")[0] 
+            pair = param.split("=") 
+            key = pair[0] 
+            value = pair[1] 
 
             return ( resource, key, value )
 
@@ -56,28 +55,20 @@ class HandleRequests(BaseHTTPRequestHandler):
         if len(parsed) == 2:
             (resource, id) = parsed
 
-            if resource == "animals":
-                if id is not None:
-                    response = f"{get_single_animal(id)}"
-                else:
-                    response = f"{get_all_animals()}"
+            if resource == "players":
+                response = f"{get_all_players()}"
 
-            # elif resource == "customers":
+            elif resource == "teams":
+                response = f"{get_all_teams()}"
+
+            elif resource == "teamscores":
+                response = f"{get_all_scores()}"
 
         elif len(parsed) == 3:
             ( resource, key, value ) = parsed
 
-            # if key == "email" and resource == "customers":
-            #     response = get_customers_by_email(value)
-
-            # elif key == "location_id" and resource == "animals":
-            #     response = get_animals_by_location(value)
-            
-            # elif key == "status" and resource == "animals":
-            #     response = get_animals_by_status(value)
-            
-            # elif key == "location_id" and resource == "employees":
-            #     response = get_employees_by_location(value)
+            if key == "teamId" and resource == "players":
+                response = get_players_by_team(value)
 
         self.wfile.write(f"{response}".encode())
 
