@@ -1,7 +1,9 @@
 CREATE TABLE 'Team' (
     `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    `name` TEXT NOT NULL
+    `moniker` TEXT NOT NULL
 );
+
+DROP TABLE 'Team'
 
 CREATE TABLE 'Player' (
     `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -19,6 +21,10 @@ CREATE TABLE 'Team_score' (
     FOREIGN KEY(`team_id`) REFERENCES `Team`(`id`)
 );
 
+INSERT INTO `Team`
+VALUES (null, 'Gryffendor');
+INSERT INTO `Team`
+VALUES (null, 'Ravenclaw');
 INSERT INTO `Team`
 VALUES (null, 'Hufflepuff');
 INSERT INTO `Team`
