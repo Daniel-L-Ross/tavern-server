@@ -8,6 +8,9 @@ class HandleRequests(BaseHTTPRequestHandler):
         path_params = path.split("/")
         resource = path_params[1]
 
+        if "_embed" in resource:
+            embeds = 
+
         if "?" in resource:
 
             param = resource.split("?")[1] 
